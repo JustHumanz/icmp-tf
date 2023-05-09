@@ -4,7 +4,7 @@ Send a file with icmp protocol
 
 ## Use
 ```bash
-sudo python3 kano_reciv.py & sudo python3 kano_ping.py
+sudo python3 kano_reciv.py & sudo python3 kano_ping.py # or you can run it on another terminal
 feh /tmp/kano.jpg
 ```
 
