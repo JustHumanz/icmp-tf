@@ -52,5 +52,5 @@ for i in range(0,dat_img_len,ICMP_MAX_DATA_LEN):
     icmp_checksum = struct.pack('<H',checksum(icmp_type+icmp_identifier+icmp_seq+payload))
     print(f"Send payload {payload} len payload {len(payload)}")
     packet = ip_header + icmp_type+icmp_checksum+icmp_identifier+icmp_seq+payload
-    s.sendto(packet, ('192.168.122.181', 0))
+    s.sendto(packet, ('127.0.0.1', 0))
     time.sleep(1)
