@@ -13,7 +13,7 @@ while True:
         icmp_ident = struct.unpack('H',icmp_header[4:6])
         if icmp_ident[0] == 2525:
             icmp_seq = struct.unpack('H',icmp_header[6:8])
-            print(f"Get payload {icmp_header[8:]} {icmp_seq[0]}")
+            print(f"Get payload {icmp_header[8:]}")
             img_dat.write(icmp_header[8:])
             if icmp_seq[0] == 2:
                 print("transter file complete")

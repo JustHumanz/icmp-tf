@@ -1,6 +1,8 @@
 import socket,ipaddress,struct,time
 
 ICMP_MAX_DATA_LEN = 512
+HOST_IP = '127.0.0.1'
+DST_IP = '127.0.0.1'
 
 def checksum(data):
     """Creates the ICMP checksum as in RFC 1071
@@ -22,8 +24,8 @@ def checksum(data):
 s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_ICMP)
 s.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
 
-host_ip = ipaddress.IPv4Address('127.0.0.1').packed
-dst_ip = ipaddress.IPv4Address('127.0.0.1').packed
+host_ip = ipaddress.IPv4Address(HOST_IP).packed
+dst_ip = ipaddress.IPv4Address(DST_IP).packed
 
 ip_header = b'\x45\x00\x00\x1c'     # Version, IHL, Type of Service | Total Length
 ip_header += b'\xab\xcd\x00\x00'    # Identification | Flags, Fragment Offset
@@ -52,5 +54,5 @@ for i in range(0,dat_img_len,ICMP_MAX_DATA_LEN):
     icmp_checksum = struct.pack('<H',checksum(icmp_type+icmp_identifier+icmp_seq+payload))
     print(f"Send payload {payload} len payload {len(payload)}")
     packet = ip_header + icmp_type+icmp_checksum+icmp_identifier+icmp_seq+payload
-    s.sendto(packet, ('127.0.0.1', 0))
+    s.sendto(packet, (DST_IP, 0))
     time.sleep(1)
